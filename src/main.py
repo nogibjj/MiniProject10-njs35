@@ -1,15 +1,36 @@
-from pyspark.sql import SparkSession
-from pyspark.sql.functions import col, expr
+"""
+Main
+"""
+
+from lib import *
 
 
-spark = SparkSession.builder.appName("Week10MiniProject").getOrCreate()
-df = spark.read.csv("data.csv", header=True, inferSchema=True)
+def main():
+    """
+    ETL using pyspark.
+    All outputs are logged to pyspark_output_data.md
+    """
+    # Extract the data from the csv file
+    extract()
+
+    # Create the spark session
+    spark = build_spark("Fandango")
+
+    # Load the data into pyspark
+    spark_df = load_data(spark)
+
+    # Run an example query. Find the average rating for films with more than 100 votes
+    query(spark, spark_df, "SELECT AVG(RATING) FROM Fandango WHERE VOTES > 100", "Fandango")
+
+    # Preform an example transformation. Add a new column to detect possibly misleading ratings
+    spark_df = transform(spark_df)
+
+    # Get some summary statistics on the data after the transformation
+    spark_df.describe().show()
+
+    # Teardown spark
+    teardown_spark(spark)
 
 
-# Apply a transformation (filtering)
-filtered_df = df.filter(col("some_column") > 10)
-
-# Perform a Spark SQL query
-df.createOrReplaceTempView("temp_table")
-result_df = spark.sql("SELECT AVG(some_column) FROM temp_table")
-
+if __name__ == "__main__":
+    main()
