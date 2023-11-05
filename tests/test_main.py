@@ -1,7 +1,11 @@
-from src.main import func
+"""
+Test for the md generation
+"""
+import os
 
 
-def test_func():
-    assert func(3) == 4
-    assert func(4) == 5
-    assert func(-1) == 0
+def test_outputfile():
+    """
+    Test that the output file exists
+    """
+    assert os.path.exists("pyspark_output_data.md")
