@@ -1,3 +1,5 @@
+[![CI](https://github.com/nogibjj/MiniProject10-njs35/actions/workflows/python-ci.yml/badge.svg)](https://github.com/nogibjj/MiniProject10-njs35/actions/workflows/python-ci.yml)
+
 ## PySpark Data Processing MiniProject
 This project focuses on leveraging PySpark for processing a large dataset. The primary goals include performing a data transformation and incorporating a Spark SQL query. To achieve this, I utilize a dataset from by fivethirtyeight, which contains information about Fandango movie reviews.
 
